@@ -3,5 +3,5 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Integ
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 class ReusableForm(FlaskForm):
-    search = StringField('Search', validators=[DataRequired()])
+    search = StringField('Post a Kind Message!', validators=[DataRequired()])
     submit = SubmitField('Submit')

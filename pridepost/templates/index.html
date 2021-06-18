@@ -1,54 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>PridePost</title>
-        <!-- Google fonts-->
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Chewy" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/static/css/styles.css" rel="stylesheet" />
-    </head>
 
-    <body>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>PridePost</title>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+
+<body>
+    <img class="image" src="/static/images/logo.jpeg" alt="logo">
     <div class="content-section">
-        {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-    </div>
-    {% endfor %}
+        <!-- {% for message in get_flashed_messages() %} -->
+        <div class="alert alert-warning" data-closable="">
+            <button type="button" class="close" data-dismiss="alert" data-close>&times;</button>
+            {{ get_flashed_messages()[0] }}
+        </div>
+        <!-- {% endfor %} -->
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form.search.label(class="form-control-label", style="font-size: 50px") }}
-                    {% if form.search.errors %}
-                        {{ form.search(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.search.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.search(class="form-control form=control-lg") }}
-                    {% endif %}
+
+                <!-- Post a Kind Message-->
+                {{ form.search.label(class="form-control-label") }}
+                {% if form.search.errors %}
+                <!-- Text field -->
+                {{ form.search(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.search.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
                 </div>
+                {% else %}
+                {{ form.search(class="form-control form=control-lg") }}
+                {% endif %}
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+            <div class="allmsgs">
                 {% for msg in msgs %}
-    <div style="font-size:40px; text-align:left; padding: 20px; box-shadow: 0 0 3px black; line-height: 40px; color: white">
-        <p style="color: darkblue">{{ msg }}</p>
-    </div>
-    {% endfor %}
+                <div class="msg">{{ msg }}</div>
+                {% endfor %}
+            </div>
+            <img class="image" src="/static/images/info.jpeg" alt="logo" id="info">
+            <!-- <img class="image" src="/static/images/man.jpeg" alt="logo" id="man">
+            <img class="image" src="/static/images/woman.jpeg" alt="logo" id="woman"> -->
         </form>
     </div>
-    </body>
+</body>
+<style>
+    body {
+        background-image: url('/static/images/background.jpeg');
+        background-size: 100% 120%;
+        background-color: #faf8f1;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+
+    }
+
+    #info {
+        margin-top: 15%;
+        margin-left: 35%;
+    }
+
+    .image {
+        width: 30%;
+        /* margin-left: 34% */
+    }
+
+    .form-group {
+        border: transparent;
+        padding-bottom: 2%;
+    }
+
+    .form-control-label {
+        font-size: 50px;
+        font-family: 'Yusei Magic', sans-serif;
+        color: #f5f5f1;
+        margin-left: 35%;
+    }
+
+    .btn {
+        font-size: 30px;
+        background-color: #ff767f;
+        color: #f5f5f1;
+        font-family: 'Yusei Magic', sans-serif;
+        padding: 10px 15px;
+        margin-left: 45%;
+        border-radius: 5px;
+        border-color: darkgray;
+    }
+
+    .btn:hover {
+        background-color: #ffeaf9;
+        color: darkslateblue;
+    }
+
+    .form-control {
+        margin-left: 22.5%;
+        width: 50%;
+        border: 2px solid #ff767f;
+        border-radius: 4px;
+        padding: 20px 20px;
+    }
+
+    .msg {
+        font-size: 30px;
+        font-family: 'Yusei Magic', sans-serif;
+        margin-left: 22.5%;
+        max-height: 100px;
+        max-width: 51%;
+        padding: 20px 20px;
+        background-color: #ffeaf9;
+        color: darkslateblue;
+        border: 0.5px solid darkslateblue;
+        border-radius: 4px;
+    }
+
+    .msg:hover {
+        color: white;
+        background-color: #ff767f;
+        font-style: italic;
+    }
+
+    .allmsgs {
+        margin-top: 5px;
+        max-height: 345px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .alert {
+        border: 2px solid rgb(211, 106, 106);
+        background-color: tomato;
+        color: white;
+        font-family: 'Yusei Magic', sans-serif;
+        font-size: 20px;
+        width: fit-content;
+        border-radius: 4px;
+    }
+</style>
 
 </html>
