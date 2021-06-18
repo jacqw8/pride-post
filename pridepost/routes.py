@@ -6,6 +6,10 @@ from pridepost.forms import ReusableForm
 @app.route("/", methods=['GET', 'POST'])
 def index():
     form = ReusableForm()
-    return render_template('index.html', title='Index')
+    msgs = []
+    if form.validate_on_submit():
+        if analysis.get_sentiment(form.search.data) == "Positive":
+            msgs.append(form.search.data)
+    return render_template('index.html', form=form, msgs=msgs, title='Index')
 
 

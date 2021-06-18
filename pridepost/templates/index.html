@@ -19,11 +19,8 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-<!--                <legend class="border-bottom mb-4">Search</legend>-->
-
                 <div class="form-group">
                     {{ form.search.label(class="form-control-label", style="font-size: 50px") }}
-
                     {% if form.search.errors %}
                         {{ form.search(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -34,12 +31,16 @@
                     {% else %}
                         {{ form.search(class="form-control form=control-lg") }}
                     {% endif %}
-
                 </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+                {% for msg in msgs %}
+    <div style="font-size:40px; text-align:left; padding: 20px; box-shadow: 0 0 3px black; line-height: 40px; color: white">
+        <p style="color: darkblue">{{ msg }}</p>
+    </div>
+    {% endfor %}
         </form>
     </div>
     </body>

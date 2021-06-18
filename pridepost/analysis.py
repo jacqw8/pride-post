@@ -33,7 +33,10 @@ classifier = NaiveBayesClassifier.train(features_train)
 #     round(probdist.prob(pred_sentiment), 2) # accuracy
 
 def get_sentiment(input_text):
-    probdist = classifier.prob_classify(extract_features(input_text))
+    probdist = classifier.prob_classify(extract_features(input_text.split()))
+    print(extract_features(extract_features(input_text.split())))
     pred_sentiment = probdist.max()  # Positive or negative
     round(probdist.prob(pred_sentiment), 2)  # accuracy
     return(pred_sentiment)
+
+# print(get_sentiment('I hate the lgbtq community. You are all horrible'))
