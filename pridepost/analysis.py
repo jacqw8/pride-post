@@ -5,9 +5,8 @@ from nltk.corpus import movie_reviews
 def extract_features(word_list):
     return dict([word, True] for word in word_list)
 
-if __name__ == '__main__':
-    positive_fileids = movie_reviews.fileids('pos')
-    negative_fileids = movie_reviews.fileids('neg')
+positive_fileids = movie_reviews.fileids('pos')
+negative_fileids = movie_reviews.fileids('neg')
 
 features_positive = [(extract_features(movie_reviews.words(fileids=[f])),'Positive') for f in positive_fileids]
 features_negative = [(extract_features(movie_reviews.words(fileids=[f])),'Negative') for f in negative_fileids]
@@ -22,15 +21,19 @@ features_test = features_positive[threshold_positive:]+features_negative[thresho
 
 classifier = NaiveBayesClassifier.train(features_train)
 
-#Sample input reviews
-input_reviews = [
-    "I love everyone here! You matter to me!",
-    "I hate the lgbtq community. You are all horrible"
-]
+# #Sample input reviews
+# input_reviews = [
+#     "I love everyone here! You matter to me!",
+#     "I hate the lgbtq community. You are all horrible"
+# ]
+#
+# for review in input_reviews:
+#     probdist = classifier.prob_classify(extract_features(review.split()))
+#     pred_sentiment = probdist.max() # Positive or negative
+#     round(probdist.prob(pred_sentiment), 2) # accuracy
 
-for review in input_reviews:
-    print("\nReview:", review)
-    probdist = classifier.prob_classify(extract_features(review.split()))
-    pred_sentiment = probdist.max()
-    print("Predicted sentiment: ", pred_sentiment)
-    print("Probability: ", round(probdist.prob(pred_sentiment), 2))
+def get_sentiment(input_text):
+    probdist = classifier.prob_classify(extract_features(input_text))
+    pred_sentiment = probdist.max()  # Positive or negative
+    round(probdist.prob(pred_sentiment), 2)  # accuracy
+    return(pred_sentiment)
